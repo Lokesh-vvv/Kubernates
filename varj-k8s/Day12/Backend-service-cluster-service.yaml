@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name:  backend-service
+spec:
+  selector:
+    app: backend-app
+  ports:
+    - protocol: TCP #this is the default protocal whether you define TCP explisitly or not k8s assumes the protocal as k8s
+      port: 80
+      targetPort: 80
+  type: ClusterIP
+
+# Here we are using the ClusterIP as the service type which is the defualt one in k8s services define explisitly or not
+#This clusterIP service enables the communication between the pods(services) inside or with in the cluster
+
+      
+    
