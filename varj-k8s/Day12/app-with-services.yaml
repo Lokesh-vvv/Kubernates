@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: deployment
+metadata:
+  name: deployment-with-services
+spec:
+  replicas: 3
+  selector:
+     matchlabel:  
+       app: srilaxmiapp
+  template:
+    metadata:
+       labels:
+         app: srilaxmiapp
+    spec:
+      containers:
+        - name: srilaxmiapp-niginx
+          image: nginx:latest
+          ports: 
+            - containerPort: 80
+
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name:  backend-service
+# spec:
+#   selector:
+#     app: backend-app
+#   ports:
+#     - protocol: TCP #this is the default protocal whether you define TCP explisitly or not k8s assumes the protocal as k8s
+#       port: 80
+#       targetPort: 80
+#       nodePort: 31000
+#   type: Nodeport
+
+#Due to yaml lint issues in my local i have set to comment mode
+
+         
+
+           

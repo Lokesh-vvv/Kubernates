@@ -1,0 +1,15 @@
+#Most of the time we dont use the loadbalancer service in the k8s
+apiVersion: v1
+kind: Service
+metadata:
+  name: loadbalancer-service
+spec:
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
+  type: LoadBalancer
+  #Note: In production environment we dont use the loadbalancer-service
+  

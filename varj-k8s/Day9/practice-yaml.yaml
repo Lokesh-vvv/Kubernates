@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: srilakh
+  labels:
+    name: srilakh-sprinkles
+    tier: frontend
+spec:
+  containers:
+    - name: srilakh-frontend-container
+      image: nginx
+      ports:
+        - containerPort: 80
+ 
