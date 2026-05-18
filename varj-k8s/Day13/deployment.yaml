@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: niginx-deployment
+  annotations:
+    kubernetes.io/change-cause: "initial-release with niginx:1.19"
+spec:
+  replicas: 3
+  selector:
+    matchExpressions:
+      - key: app
+        operator: In
+        values:
+          - nginx
+          - apache
+      - key: environment
+        operator: NotIn
+        values:
+          - development
+      - key: tier
+        operator: Exists
+      - key: debug
+        operator: DoesNotExist
+  template:
+    metadata:
+      labels:
+        app: nginx
+        environment: production
+        tier: frontend
+    spec:
+      containers:
+        - name: nignix-deploy-object-container
+          image: nginx
+
+#We can set the image to the deployment imperativelyt using the cli
+#kubectl set image deploy niginx-deployment nignix-deploy-object-container=nginx:1.20
+#to get the newly updated rollout changes
+#kubectl rollout history deploy  niginx-deployment
+#rollback
+#kubectl rollout undo  deploy  niginx-deployment
+
+
+
+    
+  
+   
+
+

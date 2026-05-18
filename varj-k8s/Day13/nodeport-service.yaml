@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name:  backend-service
+spec:
+  selector:
+    app: backend-app
+  ports:
+    - protocol: TCP #this is the default protocal whether you define TCP explisitly or not k8s assumes the protocal as k8s
+      port: 80
+      targetPort: 80
+      nodePort: 31000
+  type: Nodeport
+
+# Here we are using the Nodeport  as the service to allow users outside of the cluster to access the apps(services)
+#The difference is the Type
+#NOTE: the node port range is the 30000 to 32767
+#Defination: Node port is the static port used to access the apps or services outsode of the cluster
+#When we create the nodeport servoce in the cluster we dont need to create the front-end service explisitly as it crestes the service by deafult with the nodeport
+
+
+      
+    
