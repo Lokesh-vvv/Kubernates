@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodeselector-deployment
+  labels:
+    app: nodeselector-deployment-label
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: ns-pods
+  template:
+    metadata:
+      labels:
+        app: ns-pods
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: storage
+                operator: In
+                values:
+                  - ssd
+                  - hdd
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 10
+              preference:
+                matchExpressions:
+                  - key: storage
+                    operator: In
+                    values:
+                      - ssd
+            - weight: 5
+              preference:
+                matchExpressions:
+                  - key: storage
+                    operator: In
+                    values:
+                      - hdd  
+      containers:
+        - name: nginx
+          image: nginx
+
+
+        
+#Here we have the preferscheculeignoreexecution rule which is difference from the requirescheculeignoreexecution
+    

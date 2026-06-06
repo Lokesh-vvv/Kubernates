@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodeselector-deployment
+  labels:
+    app: nodeselector-deployment-label
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: ns-pods
+  template:
+    metadata:
+      labels:
+        app: ns-pods
+    spec:
+      nodeSelector:
+        storage: ssd
+      containers:
+        - name: nginx
+          image: nginx
+
+        
+      
+    

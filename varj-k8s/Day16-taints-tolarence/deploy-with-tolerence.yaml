@@ -1,0 +1,27 @@
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: nginx-with-toleration-deployment
+    labels: 
+      app: nginx-with-toleration-deployment
+  spec:
+    replicas: 5
+    selector:
+      matchLabels: 
+        app: nginx-tt
+    template:
+      metadata:
+        labels:
+          app: nginx-tt
+      spec:
+        tolerations:
+          - key: storage
+            operator: Equal
+            value: ssd
+            effect: NoSchedule
+        containers: 
+          - name: nginx-for-tt
+            image: nginx
+            ports:
+              - containerPort: 80
+
