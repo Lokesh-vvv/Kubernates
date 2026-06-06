@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodeselector-deployment
+  labels:
+    app: nodeselector-deployment-label
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: ns-pods
+  template:
+    metadata:
+      labels:
+        app: ns-pods
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: storage
+                operator: In
+                values:
+                - ssd
+                - hdd
+              - key: env
+                operator: NotIn
+                values:
+                  - dev
+              - key: high-memory
+                operator: Exists
+              - key: dedicated
+                operator: DoesNotExist
+              - key: cpu
+                operator: Gt
+                values:
+                  - "4"
+              - key: disk
+                operator: Lt
+                values:
+                  - "500"    
+      containers:
+        - name: nginx
+          image: nginx
+
+
+        
+      
+    
