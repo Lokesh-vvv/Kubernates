@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: request-limit-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: vish-stress-rl
+  template:
+    metadata:
+      labels:
+        app: vish-stress-rl
+    spec:
+      containers:
+        - name: nignx-rl
+          image: vish/stress
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "100Mi"
+            limits:
+              cpu: "900m"
+              memory: "200Mi"
+          #args:
+           # - -cpus
+            #- "1"
+# Here we are trying to do 1 cpu throttle to increase pressure on the cpu and cpu throttle happend to bring tio actual uasge of cpu
+# we can set the command stree for the memory as well if required and test it.
+
+      

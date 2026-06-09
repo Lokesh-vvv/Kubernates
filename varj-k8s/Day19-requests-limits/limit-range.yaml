@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: resource-limits
+  namespace: default  # Change this to your target namespace
+spec:
+  limits:
+  - type: Container
+    default:
+      cpu: "2"        # Default CPU limit
+      memory: "4Gi"   # Default memory limit
+    defaultRequest:
+      cpu: "1"        # Default CPU request
+      memory: "2Gi"   # Default memory request
+    max:
+      cpu: "4"        # Maximum CPU a container can request
+      memory: "8Gi"   # Maximum memory a container can request
+    min:
+      cpu: "500m"     # Minimum CPU a container must request
+      memory: "512Mi" # Minimum memory a container must request
+
+
+# these are the limit range we can define default some team members may not define the min and max requiest and limits for the resources so we can 
+#use these default values.
